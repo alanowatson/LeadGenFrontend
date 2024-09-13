@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/Layout';
+import PrivateRoute from './components/PrivateRoute';
+import Login from './pages/Login';
+import LeadGenDashboard from './pages/LeadGenDashboard';
+import AffinityArtistGenerator from './pages/AffinityArtistGenerator';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path='/login' component={Login} />
+          <PrivateRoute path='/dashboard' component={LeadGenDashboard} />
+          <PrivateRoute
+            path='/affinity-generator'
+            component={AffinityArtistGenerator}
+          />
+          <PrivateRoute exact path='/' component={LeadGenDashboard} />
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
